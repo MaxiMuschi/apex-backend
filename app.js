@@ -112,9 +112,12 @@
     apiFetch("/api/progress", { method: "PUT", body: progressPayload() })
       .then(function (r) {
         if (r.status === 401) { saveAuth(null); renderAccount(); }
-        else setSyncStatus("Synced");
+        else { setSyncStatus("Synced"); setHealth("ok", "Cloud sync online"); }
       })
-      .catch(function () { setSyncStatus("Offline — saved locally"); });
+      .catch(function () {
+        setSyncStatus("Offline — saved locally");
+        setHealth("down", "Cloud sync offline");
+      });
   }
 
   // Union local + remote so neither device loses completions.
@@ -158,9 +161,13 @@
         renderStreak();
         renderToday();
         renderProgress();
+        setHealth("ok", "Cloud sync online");
         pushProgress();            // converge the server to the merged view
       })
-      .catch(function () { setSyncStatus("Offline — saved locally"); });
+      .catch(function () {
+        setSyncStatus("Offline — saved locally");
+        setHealth("down", "Cloud sync offline");
+      });
   }
 
   function isDone(subjId, unit) { return state.completed[subjId].indexOf(unit) !== -1; }
@@ -314,6 +321,25 @@
   function setSyncStatus(msg) {
     var el = document.getElementById("sync-status");
     if (el) el.textContent = msg || "";
+  }
+
+  // Health indicator: is the API reachable at all?
+  function setHealth(stateName, text) {
+    var h = document.getElementById("health");
+    if (!h) return;
+    h.className = "health " + stateName;
+    h.title = "API: " + (API_BASE || "(same origin)");
+    var t = h.querySelector(".health-text");
+    if (t) t.textContent = text;
+  }
+  function checkHealth() {
+    setHealth("checking", "Checking…");
+    fetch(API_BASE + "/health", { method: "GET" })
+      .then(function (r) {
+        if (r.ok) setHealth("ok", "Cloud sync online");
+        else setHealth("down", "Cloud sync offline");
+      })
+      .catch(function () { setHealth("down", "Cloud sync offline"); });
   }
 
   function renderAccount() {
@@ -726,6 +752,7 @@
     renderControls();
     renderStreak();
     renderAccount();
+    checkHealth();                  // show whether the API is reachable
     if (isAuthed()) pullAndMerge(); // pull cloud progress and merge on load
 
     document.getElementById("board-select").addEventListener("change", function (e) {
