@@ -4,6 +4,11 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const makeUsers = require('./users');
+const makeProgress = require('./progress');
+
+// CORS origin for the (separately hosted) static frontend. "*" by default
+// since auth uses Bearer tokens, not cookies; set CORS_ORIGIN to lock it down.
+const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-me';
 const JWT_EXPIRES_IN = '7d';
@@ -21,10 +26,32 @@ function signToken(user) {
   });
 }
 
+// JWT auth middleware: verifies the Bearer token and sets req.user.
+function requireAuth(req, res, next) {
+  const m = /^Bearer (.+)$/.exec(req.headers.authorization || '');
+  if (!m) return res.status(401).json({ error: 'missing token' });
+  try {
+    req.user = jwt.verify(m[1], JWT_SECRET);
+    return next();
+  } catch (err) {
+    return res.status(401).json({ error: 'invalid token' });
+  }
+}
+
 module.exports = function createApp(db) {
   const users = makeUsers(db);
+  const progress = makeProgress(db);
   const app = express();
   app.use(express.json());
+
+  // --- CORS (frontend is served from a different origin) ---------------
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', CORS_ORIGIN);
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+    return next();
+  });
 
   app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
@@ -82,19 +109,36 @@ module.exports = function createApp(db) {
   });
 
   // --- Current user (JWT-protected) ------------------------------------
-  app.get('/api/me', async (req, res) => {
-    const m = /^Bearer (.+)$/.exec(req.headers.authorization || '');
-    if (!m) return res.status(401).json({ error: 'missing token' });
-    let payload;
+  app.get('/api/me', requireAuth, async (req, res) => {
     try {
-      payload = jwt.verify(m[1], JWT_SECRET);
-    } catch (err) {
-      return res.status(401).json({ error: 'invalid token' });
-    }
-    try {
-      const row = await users.findByEmail(payload.email);
+      const row = await users.findByEmail(req.user.email);
       if (!row) return res.status(401).json({ error: 'user not found' });
       return res.json({ user: publicUser(row) });
+    } catch (err) {
+      return res.status(500).json({ error: 'internal error' });
+    }
+  });
+
+  // --- Progress (JWT-protected) ----------------------------------------
+  // GET returns the saved state (or null if none saved yet).
+  app.get('/api/progress', requireAuth, async (req, res) => {
+    try {
+      const data = await progress.get(req.user.sub);
+      return res.json({ progress: data });
+    } catch (err) {
+      return res.status(500).json({ error: 'internal error' });
+    }
+  });
+
+  // PUT replaces the saved state with the request body.
+  app.put('/api/progress', requireAuth, async (req, res) => {
+    const data = req.body;
+    if (data === null || typeof data !== 'object' || Array.isArray(data)) {
+      return res.status(400).json({ error: 'progress must be a JSON object' });
+    }
+    try {
+      const saved = await progress.save(req.user.sub, data);
+      return res.json({ progress: saved.data, updated_at: saved.updated_at });
     } catch (err) {
       return res.status(500).json({ error: 'internal error' });
     }

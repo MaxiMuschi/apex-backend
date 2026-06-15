@@ -40,6 +40,8 @@
     <p class="control-note" id="tier-note"></p>
   </div>
 
+  <div class="account-bar" id="account-bar"></div>
+
   <nav class="tab-bar" id="tab-bar" aria-label="Primary">
     <button class="tab" data-view="today" aria-current="page">Today</button>
     <button class="tab" data-view="curriculum">Curriculum</button>
@@ -116,6 +118,12 @@
     <p class="disclaimer">Spec references are indicative and should be checked against your board&rsquo;s current official specification.</p>
   </footer>
 
+  <script>
+    // Cloud sync & login. Set this to your deployed API base URL
+    // (e.g. "https://your-api.onrender.com"). Leave empty to use the same
+    // origin as this page (handy when the API serves the frontend in dev).
+    window.STUDY_JOURNAL_API_BASE = window.STUDY_JOURNAL_API_BASE || "";
+  </script>
   <script src="curriculum.js"></script>
   <script src="app.js"></script>
 </body>

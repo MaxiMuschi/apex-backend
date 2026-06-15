@@ -103,6 +103,29 @@ h1, h2, h3 { line-height: 1.25; }
   flex: 1 1 280px;
 }
 
+/* ---- Account / sync bar ---- */
+.account-bar {
+  max-width: var(--maxw);
+  margin: 0 auto 4px;
+  padding: 0 20px 10px;
+}
+.account-form {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+}
+.account-label, .account-who { color: var(--ink-soft); font-size: .85rem; }
+.account-who strong { color: var(--ink); }
+.account-form input {
+  font: inherit; padding: 7px 10px;
+  border: 1px solid var(--line); border-radius: 8px;
+  flex: 0 1 200px;
+}
+.account-form input:focus-visible { outline: 3px solid var(--brand); outline-offset: 1px; }
+.account-form .btn { padding: 7px 14px; }
+.account-msg { font-size: .82rem; }
+.account-msg.err { color: var(--bad); }
+.account-msg.ok { color: var(--ink-soft); }
+.sync-status { color: var(--ink-soft); font-size: .82rem; }
+
 /* ---- Tabs ---- */
 .tab-bar {
   position: sticky; top: 0; z-index: 20;

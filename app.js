@@ -55,6 +55,112 @@
   }
   function save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    scheduleSync();
+  }
+
+  // ---- Cloud sync (optional; degrades to localStorage when logged out) --
+  // Configure window.STUDY_JOURNAL_API_BASE to your deployed API URL.
+  var API_BASE = (window.STUDY_JOURNAL_API_BASE || "").replace(/\/+$/, "");
+  var AUTH_KEY = "study-journal-auth";
+  var auth = loadAuth();           // { token, email } or null
+  var syncTimer = null;
+
+  function loadAuth() {
+    try { return JSON.parse(localStorage.getItem(AUTH_KEY)) || null; }
+    catch (e) { return null; }
+  }
+  function saveAuth(a) {
+    auth = a;
+    try {
+      if (a) localStorage.setItem(AUTH_KEY, JSON.stringify(a));
+      else localStorage.removeItem(AUTH_KEY);
+    } catch (e) {}
+  }
+  function isAuthed() { return !!(auth && auth.token); }
+
+  function apiFetch(path, opts) {
+    opts = opts || {};
+    var headers = opts.headers || {};
+    headers["Content-Type"] = "application/json";
+    if (isAuthed()) headers["Authorization"] = "Bearer " + auth.token;
+    return fetch(API_BASE + path, {
+      method: opts.method || "GET",
+      headers: headers,
+      body: opts.body ? JSON.stringify(opts.body) : undefined
+    });
+  }
+
+  // Only these fields make up the synced progress state.
+  function progressPayload() {
+    return {
+      completed: state.completed,
+      streak: state.streak,
+      lastVisit: state.lastVisit,
+      board: state.board,
+      tier: state.tier
+    };
+  }
+
+  function scheduleSync() {
+    if (!isAuthed()) return;
+    if (syncTimer) clearTimeout(syncTimer);
+    syncTimer = setTimeout(pushProgress, 800); // debounce bursts of changes
+  }
+
+  function pushProgress() {
+    if (!isAuthed()) return;
+    apiFetch("/api/progress", { method: "PUT", body: progressPayload() })
+      .then(function (r) {
+        if (r.status === 401) { saveAuth(null); renderAccount(); }
+        else setSyncStatus("Synced");
+      })
+      .catch(function () { setSyncStatus("Offline — saved locally"); });
+  }
+
+  // Union local + remote so neither device loses completions.
+  function mergeProgress(local, remote) {
+    if (!remote) return local;
+    var completed = {};
+    ["ENG", "MAT", "SCI"].forEach(function (k) {
+      var seen = {};
+      (local.completed[k] || []).concat(remote.completed && remote.completed[k] || [])
+        .forEach(function (u) { seen[u] = true; });
+      completed[k] = Object.keys(seen).map(Number).sort(function (a, b) { return a - b; });
+    });
+    return {
+      completed: completed,
+      streak: Math.max(local.streak || 0, remote.streak || 0),
+      lastVisit: (local.lastVisit || "") > (remote.lastVisit || "")
+        ? local.lastVisit : (remote.lastVisit || local.lastVisit),
+      board: remote.board || local.board,
+      tier: remote.tier || local.tier
+    };
+  }
+
+  function pullAndMerge() {
+    if (!isAuthed()) return;
+    setSyncStatus("Syncing…");
+    apiFetch("/api/progress")
+      .then(function (r) {
+        if (r.status === 401) { saveAuth(null); renderAccount(); return null; }
+        return r.json();
+      })
+      .then(function (body) {
+        if (!body) return;
+        var merged = mergeProgress(state, body.progress);
+        state.completed = merged.completed;
+        state.streak = merged.streak;
+        state.lastVisit = merged.lastVisit;
+        state.board = merged.board;
+        state.tier = merged.tier;
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+        renderControls();
+        renderStreak();
+        renderToday();
+        renderProgress();
+        pushProgress();            // converge the server to the merged view
+      })
+      .catch(function () { setSyncStatus("Offline — saved locally"); });
   }
 
   function isDone(subjId, unit) { return state.completed[subjId].indexOf(unit) !== -1; }
@@ -202,6 +308,74 @@
     var tieredSubjs = SUBJECTS.filter(function (s) { return s.tiered; })
       .map(function (s) { return s.name; }).join(" and ");
     note.textContent = "Tier affects " + tieredSubjs + ". English Language is untiered.";
+  }
+
+  // ---- Account / sync UI ------------------------------------------------
+  function setSyncStatus(msg) {
+    var el = document.getElementById("sync-status");
+    if (el) el.textContent = msg || "";
+  }
+
+  function renderAccount() {
+    var bar = document.getElementById("account-bar");
+    if (!bar) return;
+    bar.innerHTML = "";
+    if (isAuthed()) {
+      var who = el("span", "account-who",
+        "Synced as <strong>" + escapeHtml(auth.email) + "</strong>");
+      var status = el("span", "sync-status");
+      status.id = "sync-status";
+      var out = el("button", "btn btn-ghost", "Log out");
+      out.addEventListener("click", doLogout);
+      bar.appendChild(who);
+      bar.appendChild(status);
+      bar.appendChild(out);
+      return;
+    }
+    // Logged-out: compact email/password form.
+    var form = document.createElement("form");
+    form.className = "account-form";
+    form.innerHTML =
+      '<span class="account-label">Save progress across devices:</span>' +
+      '<input type="email" id="acct-email" placeholder="email" autocomplete="username" aria-label="Email" required>' +
+      '<input type="password" id="acct-pass" placeholder="password (8+ chars)" autocomplete="current-password" aria-label="Password" required>' +
+      '<button type="submit" class="btn btn-primary" id="acct-login">Log in</button>' +
+      '<button type="button" class="btn" id="acct-signup">Sign up</button>' +
+      '<span class="account-msg" id="acct-msg"></span>';
+    form.addEventListener("submit", function (e) { e.preventDefault(); doAuth("login"); });
+    bar.appendChild(form);
+    document.getElementById("acct-signup").addEventListener("click", function () { doAuth("signup"); });
+  }
+
+  function acctMsg(msg, ok) {
+    var m = document.getElementById("acct-msg");
+    if (m) { m.textContent = msg || ""; m.className = "account-msg" + (ok ? " ok" : " err"); }
+  }
+
+  function doAuth(kind) {
+    var email = (document.getElementById("acct-email") || {}).value || "";
+    var password = (document.getElementById("acct-pass") || {}).value || "";
+    if (!email || !password) { acctMsg("Enter an email and password.", false); return; }
+    acctMsg(kind === "signup" ? "Creating account…" : "Logging in…", true);
+    apiFetch("/api/" + kind, { method: "POST", body: { email: email, password: password } })
+      .then(function (r) {
+        return r.json().then(function (body) { return { status: r.status, body: body }; });
+      })
+      .then(function (res) {
+        if (res.status === 200 || res.status === 201) {
+          saveAuth({ token: res.body.token, email: res.body.user.email });
+          renderAccount();
+          pullAndMerge();
+        } else {
+          acctMsg(res.body && res.body.error ? res.body.error : "Something went wrong.", false);
+        }
+      })
+      .catch(function () { acctMsg("Couldn't reach the server.", false); });
+  }
+
+  function doLogout() {
+    saveAuth(null);
+    renderAccount();
   }
 
   // ---- Renderers ---------------------------------------------------------
@@ -551,6 +725,8 @@
     updateStreak();
     renderControls();
     renderStreak();
+    renderAccount();
+    if (isAuthed()) pullAndMerge(); // pull cloud progress and merge on load
 
     document.getElementById("board-select").addEventListener("change", function (e) {
       state.board = e.target.value; save();

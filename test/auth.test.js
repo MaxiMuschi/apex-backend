@@ -134,3 +134,81 @@ test('GET /api/me requires a valid token', async () => {
   const no = await request(app).get('/api/me');
   assert.equal(no.status, 401);
 });
+
+// --- Progress ----------------------------------------------------------
+const SAMPLE_PROGRESS = {
+  completed: { ENG: [1, 2], MAT: [1], SCI: [] },
+  streak: 3,
+  lastVisit: '2026-06-15',
+  board: 'AQA',
+  tier: 'Higher',
+};
+
+async function authedApp() {
+  const { app, db } = freshApp();
+  const { body } = await signup(app);
+  return { app, db, token: body.token };
+}
+
+test('GET /api/progress requires a token (401)', async () => {
+  const { app } = freshApp();
+  const res = await request(app).get('/api/progress');
+  assert.equal(res.status, 401);
+});
+
+test('GET /api/progress is null before anything is saved', async () => {
+  const { app, token } = await authedApp();
+  const res = await request(app).get('/api/progress').set('Authorization', `Bearer ${token}`);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.progress, null);
+});
+
+test('PUT then GET /api/progress round-trips the saved state', async () => {
+  const { app, token } = await authedApp();
+  const put = await request(app)
+    .put('/api/progress')
+    .set('Authorization', `Bearer ${token}`)
+    .send(SAMPLE_PROGRESS);
+  assert.equal(put.status, 200);
+  assert.deepEqual(put.body.progress, SAMPLE_PROGRESS);
+
+  const get = await request(app).get('/api/progress').set('Authorization', `Bearer ${token}`);
+  assert.equal(get.status, 200);
+  assert.deepEqual(get.body.progress, SAMPLE_PROGRESS);
+});
+
+test('PUT /api/progress upserts (second write overwrites the first)', async () => {
+  const { app, token } = await authedApp();
+  await request(app)
+    .put('/api/progress')
+    .set('Authorization', `Bearer ${token}`)
+    .send(SAMPLE_PROGRESS);
+  const updated = { ...SAMPLE_PROGRESS, streak: 9 };
+  await request(app)
+    .put('/api/progress')
+    .set('Authorization', `Bearer ${token}`)
+    .send(updated);
+  const get = await request(app).get('/api/progress').set('Authorization', `Bearer ${token}`);
+  assert.equal(get.body.progress.streak, 9);
+});
+
+test('PUT /api/progress rejects a non-object body (400)', async () => {
+  const { app, token } = await authedApp();
+  const res = await request(app)
+    .put('/api/progress')
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+    .send('[1,2,3]');
+  assert.equal(res.status, 400);
+});
+
+test('one user cannot see another user\'s progress', async () => {
+  const { app } = freshApp();
+  const a = (await signup(app)).body.token;
+  await request(app).put('/api/progress').set('Authorization', `Bearer ${a}`).send(SAMPLE_PROGRESS);
+  const bToken = (await signup(app, { email: 'bob@example.com', password: 'sup3rsecret!' })).body
+    .token;
+  const res = await request(app).get('/api/progress').set('Authorization', `Bearer ${bToken}`);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.progress, null);
+});
