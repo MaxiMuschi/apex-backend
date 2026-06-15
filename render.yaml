@@ -1,0 +1,32 @@
+# Render Blueprint for the Study Journal API.
+# Deploy: push to GitHub, then in Render → "New" → "Blueprint" and pick this repo.
+# Provisions the Node web service and a managed Postgres, wiring DATABASE_URL
+# automatically. JWT_SECRET is generated for you. Set CORS_ORIGIN to your
+# frontend origin (e.g. https://maximuschi.github.io) to lock CORS down.
+
+services:
+  - type: web
+    name: study-journal-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: study-journal-db
+          property: connectionString
+
+databases:
+  - name: study-journal-db
+    plan: free
+    databaseName: study_journal
+    user: study_journal

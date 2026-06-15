@@ -31,13 +31,45 @@ python3 -m http.server 8000
 
 ## Deploy
 
+### Frontend (GitHub Pages)
+
 A GitHub Actions workflow (`.github/workflows/pages.yml`) deploys the
-site to GitHub Pages on every push to `main`.
+static site to GitHub Pages on every push to `main`.
 
 **First-time setup:**
 1. Push this repository to GitHub on `main`.
 2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
 3. Re-run the workflow (or push again). The deployed URL appears on the workflow run.
+
+### API (Render Blueprint)
+
+`render.yaml` provisions the Node web service **and** a managed Postgres,
+wiring `DATABASE_URL` automatically and generating `JWT_SECRET`.
+
+1. In Render → **New → Blueprint**, pick this repo. It creates
+   `study-journal-api` and `study-journal-db`.
+2. Set **`CORS_ORIGIN`** on the service to your frontend origin
+   (e.g. `https://maximuschi.github.io`) to lock CORS down. Defaults to `*`.
+3. The service runs `node server.js`, which applies `schema.sql` on boot
+   (idempotent — `CREATE TABLE IF NOT EXISTS`), then serves on `/health`,
+   `/api/signup`, `/api/login`, `/api/me`, and `/api/progress`.
+4. In the frontend, set `window.STUDY_JOURNAL_API_BASE` in `index.html`
+   to the deployed API URL to enable login and cross-device sync.
+
+### API (Docker — Railway, Fly, Cloud Run, …)
+
+A `Dockerfile` is included for any container host:
+
+```bash
+docker build -t study-journal-api .
+docker run -p 3000:3000 \
+  -e DATABASE_URL=postgres://… \
+  -e JWT_SECRET=$(openssl rand -hex 32) \
+  study-journal-api
+```
+
+Provide your own Postgres (Neon/Supabase/RDS/…). The container applies the
+schema on boot. Run migrations manually anytime with `npm run db:migrate`.
 
 You can also trigger the workflow manually via the **Actions** tab → **Deploy to GitHub Pages** → **Run workflow**.
 
