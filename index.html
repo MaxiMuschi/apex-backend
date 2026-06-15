@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="The Study Journal — a structured self-study programme. One short lesson a day across English, Maths and Science. No login, no server." />
-  <title>The Study Journal</title>
+  <meta name="description" content="The Study Journal (GCSE) — a structured self-study programme. One short lesson a day across English Language, Maths and Combined Science, with exam-board and tier support. No login, no server." />
+  <title>The Study Journal — GCSE</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
       <span class="brand-mark" aria-hidden="true">SJ</span>
       <div class="brand-text">
         <h1>The Study Journal</h1>
-        <p class="brand-sub">A little, every day.</p>
+        <p class="brand-sub">GCSE &middot; a little, every day.</p>
       </div>
     </div>
     <div class="streak" id="streak" title="Your daily streak">
@@ -24,6 +24,21 @@
       <span class="streak-label">day streak</span>
     </div>
   </header>
+
+  <div class="controls-bar" id="controls-bar">
+    <label class="control">
+      <span class="control-label">Exam board</span>
+      <select id="board-select" aria-label="Exam board"></select>
+    </label>
+    <label class="control">
+      <span class="control-label">Tier</span>
+      <select id="tier-select" aria-label="Tier">
+        <option value="Foundation">Foundation</option>
+        <option value="Higher">Higher</option>
+      </select>
+    </label>
+    <p class="control-note" id="tier-note"></p>
+  </div>
 
   <nav class="tab-bar" id="tab-bar" aria-label="Primary">
     <button class="tab" data-view="today" aria-current="page">Today</button>
@@ -45,6 +60,7 @@
     <section class="view" id="view-curriculum" hidden aria-labelledby="curric-h">
       <h2 id="curric-h">Curriculum</h2>
       <div class="subject-switcher" id="subject-switcher" role="tablist" aria-label="Subject"></div>
+      <p class="subject-meta" id="subject-meta"></p>
       <div class="card-grid" id="lesson-grid"></div>
     </section>
 
@@ -73,21 +89,23 @@
         <li>
           <h3>Open the app, do today&rsquo;s lesson</h3>
           <p>Each lesson takes about 30 minutes: a short concept reading, two worked examples,
-          and five practice questions you check yourself.</p>
+          and exam-style practice questions you check yourself &mdash; with mark schemes.</p>
+        </li>
+        <li>
+          <h3>Set your board and tier</h3>
+          <p>Choose your exam board (AQA, Edexcel, OCR) and tier (Foundation or Higher).
+          Maths and Combined Science are tiered; English Language is untiered, so the tier
+          setting doesn&rsquo;t change it. Spec references update to match your board.</p>
         </li>
         <li>
           <h3>Print if you prefer paper</h3>
-          <p>Every lesson has a &ldquo;Print worksheet&rdquo; button that strips the navigation
-          and produces a clean, A4-ready page.</p>
+          <p>Every lesson has a &ldquo;Print worksheet&rdquo; button that strips the navigation,
+          mark schemes and model answers to produce a clean, A4-ready worksheet.</p>
         </li>
         <li>
           <h3>Progress builds itself</h3>
           <p>Completion is saved automatically. A streak counter rewards showing up daily.
-          Finish the schedule and the full foundation is covered.</p>
-        </li>
-        <li>
-          <h3>For parents &amp; teachers</h3>
-          <p>No account, no login, nothing to manage. The journal lives in the browser tab.</p>
+          No account, no login, nothing to manage &mdash; the journal lives in the browser tab.</p>
         </li>
       </ol>
     </section>
@@ -95,6 +113,7 @@
 
   <footer class="site-footer">
     <p>The Study Journal &middot; runs entirely in your browser &middot; nothing is sent to a server.</p>
+    <p class="disclaimer">Spec references are indicative and should be checked against your board&rsquo;s current official specification.</p>
   </footer>
 
   <script src="curriculum.js"></script>

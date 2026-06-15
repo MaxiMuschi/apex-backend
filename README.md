@@ -1,14 +1,24 @@
-# The Study Journal
+# The Study Journal — GCSE
 
-A zero-backend, single-page self-study programme. It rotates through three
-subjects across the week, serves one short lesson a day, lets the learner
-self-check practice questions, tracks completion and a daily streak in the
-browser, and prints any lesson as a clean A4 worksheet. No login, no server,
-no database.
+A zero-backend, single-page self-study programme for GCSE. It rotates
+through three subjects across the week, serves one short lesson a day,
+lets you self-check exam-style practice questions, tracks completion
+and a daily streak in your browser, and prints any lesson as a clean
+A4 worksheet. No login, no server, no database.
 
-Built from the blueprint in `GCSE-Curriculum-Website-Guide.docx` and seeded
-with the full 45-lesson Key Stage 3 curriculum (English, Maths, Science —
-15 weekly topics each).
+Built from the blueprint in `GCSE-Curriculum-Website-Guide.docx` and
+authored to GCSE depth with exam-board and tier support.
+
+## What's in it
+
+- **GCSE English Language** — 13 topics (untiered)
+- **GCSE Mathematics** — 16 topics (Foundation + Higher)
+- **GCSE Combined Science: Trilogy** — 15 topics (Foundation + Higher), Biology / Chemistry / Physics
+- **264 practice questions** with mark schemes
+- **23 six-mark extended responses** with model answers and level descriptors
+- **Three exam boards supported** — AQA, Edexcel, OCR — with indicative spec references per topic
+
+> Spec references are indicative and should be checked against your board's current official specification before relying on them for revision planning.
 
 ## Run it
 
@@ -19,57 +29,79 @@ python3 -m http.server 8000
 # then visit http://localhost:8000
 ```
 
-Deploy by copying these files to any static host (GitHub Pages, Netlify, S3…).
-There is nothing to build and nothing to configure.
+## Deploy
+
+A GitHub Actions workflow (`.github/workflows/pages.yml`) deploys the
+site to GitHub Pages on every push to `main`.
+
+**First-time setup:**
+1. Push this repository to GitHub on `main`.
+2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
+3. Re-run the workflow (or push again). The deployed URL appears on the workflow run.
+
+You can also trigger the workflow manually via the **Actions** tab → **Deploy to GitHub Pages** → **Run workflow**.
 
 ## Files
 
-| File             | Purpose                                                        |
-| ---------------- | ------------------------------------------------------------- |
-| `index.html`     | The single page: header, tab bar, and the five view containers |
-| `styles.css`     | All styling, including the print stylesheet for worksheets      |
-| `app.js`         | The six behaviour rules, view switching, storage, self-checking |
-| `curriculum.js`  | The lesson content as plain data — edit this to change lessons  |
+| File                         | Purpose                                                |
+| ---------------------------- | ------------------------------------------------------ |
+| `index.html`                 | Single page: header, controls bar, tabs, five views    |
+| `styles.css`                 | All styling, including the print stylesheet            |
+| `app.js`                     | Behaviour rules, view switching, storage, self-check   |
+| `curriculum.js`              | The lesson content as plain data — edit here           |
+| `.github/workflows/pages.yml`| GitHub Pages deployment workflow                       |
 
-## The five views
+## Behaviour (all client-side)
 
-- **Today** — the single lesson scheduled for today, plus a 7-day week strip.
-- **Curriculum** — browse every topic for a subject as a grid of cards.
-- **Lesson detail** — concept, two worked examples, five self-checked questions, mark complete, print.
-- **Progress** — per-subject lessons done / total, percent, a bar, and a reset control.
-- **How It Works** — the method, for first-time users and parents.
+1. **Daily rotation** — Mon & Thu English, Tue & Fri Maths, Wed & Sat Science, Sun review.
+2. **Next lesson** — first not-yet-completed in the day's subject (last as review when done).
+3. **Review day** — picks the subject with the lowest completion ratio.
+4. **Streak** — consecutive-day visits +1; a gap resets to 1.
+5. **Storage** — completed lessons, streak, board, and tier saved to `localStorage`.
+6. **Self-checking** — answers normalised (lower-cased; spaces, commas, `° £ $` stripped). Open exam-style questions reveal a mark scheme instead.
 
-## The six rules (all client-side)
+## Lesson data model
 
-1. **Daily rotation** — Mon & Thu English, Tue & Fri Maths, Wed & Sat Science, Sunday review.
-2. **Next lesson** — the first lesson not yet completed in the day's subject (last one as review when all are done).
-3. **Review day** — suggests the next lesson from whichever subject has the fewest completions.
-4. **Streak** — consecutive-day visits increment the streak; a gap resets it to one.
-5. **Storage** — completed lessons, streak and last-visit date are saved to `localStorage` as JSON.
-6. **Self-checking** — answers are normalised (lower-cased; spaces, commas and `° £ $` removed) and compared; a miss reveals the correct answer.
-
-## The lesson data model
-
-Every lesson is one object with six fields (`curriculum.js`):
+Each lesson:
 
 ```js
 {
-  week: 1,                       // ordering / scheduling index → code W01
-  title: "Word classes",
-  summary: "One-line description shown on cards.",
-  concept: "The teaching content.",
-  examples: ["Worked example 1", "Worked example 2"],
-  questions: [{ q: "Question?", a: "answer" } /* …five */]
+  unit: 1,
+  title: "Atomic structure & the periodic table",
+  summary: "Sub-atomic particles, electron configuration, group trends.",
+  tier: "F",                                  // "H" = Higher-only topic
+  specRef: { AQA: "5.1", Edexcel: "1.1.1", OCR: "C2.1a" },
+  concept: "...",                             // 120-220 words, GCSE depth
+  commandWords: ["describe", "explain"],
+  examples: ["worked example 1", "worked example 2"],
+  questions: [
+    {
+      q: "...", a: "47",                      // short canonical answer
+      marks: 2, markscheme: "M1 ... A1 ...",
+      tier: "F", selfCheck: true              // false = open, no auto-check
+    }
+    // …5–6 per lesson
+  ],
+  extended: {                                 // optional 6-mark question
+    q: "...", marks: 6, model: "...", levels: "Level 3 (5–6 marks): ..."
+  }
 }
 ```
 
-## Adapting to GCSE
+## Adding to the curriculum
 
-This KS3 content is a structural template. To level up:
+Edit `curriculum.js`. The file is plain data — JSON inside a single
+`window.CURRICULUM = ...;` assignment. Add a new lesson object to the
+right subject array, give it a fresh `unit` number, fill the fields,
+and reload. No build step.
 
-- Add `board`, `tier` and `specRef` fields per lesson, and a `markscheme`
-  per question, then surface them in `renderLesson()`.
-- Extend the generated lesson code (in `app.js`, `lessonCode()`) to encode
-  board/tier, e.g. `AQA.MAT.H.U04`.
-- Author at GCSE depth using exam command words, add 6-mark extended-response
-  questions with model answers, and expand beyond 15 topics per subject.
+## Limitations to be aware of
+
+- Spec references are author-supplied as indicative; they should be
+  audited against the live spec for each board.
+- Combined Science (Trilogy) is implemented; Triple Award (Separate
+  Biology/Chemistry/Physics) would extend it with more topics per
+  subject.
+- The self-checker performs string normalisation only — it does not
+  understand equivalent algebraic forms. Open exam-style questions
+  reveal a mark scheme/model answer for self-assessment instead.
