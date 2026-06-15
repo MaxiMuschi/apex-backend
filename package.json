@@ -1,0 +1,19 @@
+{
+  "name": "apex-backend",
+  "version": "1.0.0",
+  "description": "A zero-backend, single-page self-study programme for GCSE. It rotates through three subjects across the week, serves one short lesson a day, lets you self-check exam-style practice questions, tracks completion and a daily streak in your browser, and prints any lesson as a clean A4 worksheet. No login, no server, no database.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:38507/git/MaxiMuschi/apex-backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.21.0"
+  }
+}
