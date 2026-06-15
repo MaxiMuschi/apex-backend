@@ -379,9 +379,18 @@
   }
 
   function doAuth(kind) {
-    var email = (document.getElementById("acct-email") || {}).value || "";
+    // Trim email (never has surrounding spaces); check password isn't blank
+    // or whitespace-only, but don't trim what we send — spaces can be part
+    // of a real password. This guards both the Log in (submit) and Sign up
+    // (type=button, which skips native `required`) paths.
+    var email = ((document.getElementById("acct-email") || {}).value || "").trim();
     var password = (document.getElementById("acct-pass") || {}).value || "";
-    if (!email || !password) { acctMsg("Enter an email and password.", false); return; }
+    if (!email || !password.trim()) {
+      acctMsg("Enter an email and password.", false);
+      var emptyField = document.getElementById(!email ? "acct-email" : "acct-pass");
+      if (emptyField) emptyField.focus();
+      return;
+    }
     acctMsg(kind === "signup" ? "Creating account…" : "Logging in…", true);
     apiFetch("/api/" + kind, { method: "POST", body: { email: email, password: password } })
       .then(function (r) {

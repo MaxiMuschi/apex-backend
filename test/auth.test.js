@@ -78,6 +78,45 @@ test('signup requires both email and password (400)', async () => {
   assert.equal(res.status, 400);
 });
 
+test('signup rejects a whitespace-only email (400)', async () => {
+  const { app } = freshApp();
+  const res = await signup(app, { email: '   ', password: CREDS.password });
+  assert.equal(res.status, 400);
+});
+
+test('signup rejects a whitespace-only password (400)', async () => {
+  const { app } = freshApp();
+  const res = await signup(app, { email: CREDS.email, password: '        ' });
+  assert.equal(res.status, 400);
+});
+
+test('signup trims surrounding whitespace in the email', async () => {
+  const { app, db } = freshApp();
+  const res = await signup(app, { email: '  spaced@example.com  ', password: CREDS.password });
+  assert.equal(res.status, 201);
+  assert.equal(res.body.user.email, 'spaced@example.com');
+  const { rows } = await db.query('SELECT email FROM users');
+  assert.equal(rows[0].email, 'spaced@example.com', 'stored email has no surrounding spaces');
+});
+
+test('login rejects a whitespace-only password (400)', async () => {
+  const { app } = freshApp();
+  await signup(app);
+  const res = await request(app)
+    .post('/api/login')
+    .send({ email: CREDS.email, password: '   ' });
+  assert.equal(res.status, 400);
+});
+
+test('login tolerates surrounding whitespace in the email', async () => {
+  const { app } = freshApp();
+  await signup(app);
+  const res = await request(app)
+    .post('/api/login')
+    .send({ email: `  ${CREDS.email}  `, password: CREDS.password });
+  assert.equal(res.status, 200);
+});
+
 test('signup rejects an invalid email (400)', async () => {
   const { app } = freshApp();
   const res = await signup(app, { email: 'not-an-email', password: CREDS.password });

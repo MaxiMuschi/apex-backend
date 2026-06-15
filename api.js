@@ -58,8 +58,11 @@ module.exports = function createApp(db) {
   // --- Sign up ---------------------------------------------------------
   app.post('/api/signup', async (req, res) => {
     try {
-      const { email, password } = req.body || {};
-      if (!email || !password) {
+      let { email, password } = req.body || {};
+      email = typeof email === 'string' ? email.trim() : '';
+      // Reject blank or whitespace-only fields. Don't trim the password we
+      // hash — spaces can be part of a real password.
+      if (!email || !password || !String(password).trim()) {
         return res.status(400).json({ error: 'email and password are required' });
       }
       if (!EMAIL_RE.test(email)) {
@@ -94,8 +97,9 @@ module.exports = function createApp(db) {
   // --- Log in ----------------------------------------------------------
   app.post('/api/login', async (req, res) => {
     try {
-      const { email, password } = req.body || {};
-      if (!email || !password) {
+      let { email, password } = req.body || {};
+      email = typeof email === 'string' ? email.trim() : '';
+      if (!email || !password || !String(password).trim()) {
         return res.status(400).json({ error: 'email and password are required' });
       }
       const row = await users.findByEmail(email);
