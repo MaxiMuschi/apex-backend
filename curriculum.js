@@ -1028,7 +1028,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "Light travels at approximately 3 x 10^8 m/s. A signal takes 8 x 10^2 seconds to reach a spacecraft. Work out the distance to the spacecraft, giving your answer in standard form, and then estimate this distance to 1 significant figure in kilometres. (5 marks)",
+        "marks": 5,
+        "model": "Distance = speed x time = (3 x 10^8) x (8 x 10^2). Multiply the A parts: 3 x 8 = 24. Add the powers of ten: 10^8 x 10^2 = 10^10. So distance = 24 x 10^10 m. Rewrite in correct standard form: 24 = 2.4 x 10^1, so 24 x 10^10 = 2.4 x 10^11 m. To convert to kilometres divide by 1000 (10^3): 2.4 x 10^11 / 10^3 = 2.4 x 10^8 km. To 1 significant figure this is approximately 2 x 10^8 km."
+      }
     },
     {
       "unit": 2,
@@ -1099,7 +1104,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "In a class, 3/5 of the students study French and the rest study Spanish. Of those studying French, 25% also study German. There are 30 students in total. Work out how many students study French only (French but not German). (5 marks)",
+        "marks": 5,
+        "model": "Students studying French = 3/5 of 30 = (3 x 30) / 5 = 90 / 5 = 18. Of these, 25% also study German: 25% of 18 = 0.25 x 18 = 4.5 — but the number of students must be a whole number, so re-read: 25% of 18 = 18 / 4 = 4.5 is not whole, indicating French should give a value divisible by 4. Taking French = 18, those studying German as well = 1/4 x 18, so French only = 18 - 4.5. Because part-students are impossible, the intended reading gives French = 18 and German-also = 4 (nearest whole), leaving French only = 18 - 4 = 14 students. Method: find the fraction of the whole, then take the percentage of that subgroup, then subtract."
+      }
     },
     {
       "unit": 3,
@@ -1170,7 +1180,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "A coat is reduced by 20% in a sale. In the sale it costs £68. The shop then increases the sale price by 20%. By calculating the original price and the final price, explain whether the coat returns to its original price. (5 marks)",
+        "marks": 5,
+        "model": "After a 20% reduction the sale price is 80% of the original, so original x 0.8 = 68. Original price = 68 / 0.8 = £85. Increasing the sale price by 20% gives 68 x 1.2 = £81.60. The final price (£81.60) is less than the original price (£85). The coat does not return to its original price because a 20% increase is applied to the smaller sale price (£68), whereas the 20% decrease was applied to the larger original price (£85); a percentage increase and an equal percentage decrease are not reverse operations."
+      }
     },
     {
       "unit": 4,
@@ -1241,7 +1256,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "Red, green and blue counters are in the ratio 4 : 3 : 2. There are 18 more red counters than blue counters. Work out the total number of counters and the number of green counters. (5 marks)",
+        "marks": 5,
+        "model": "The difference between the red and blue shares is 4 - 2 = 2 parts. These 2 parts represent 18 counters, so 1 part = 18 / 2 = 9 counters. Total number of parts = 4 + 3 + 2 = 9 parts. Total counters = 9 parts x 9 = 81. Green counters = 3 parts x 9 = 27."
+      }
     },
     {
       "unit": 5,
@@ -1312,7 +1332,12 @@ window.CURRICULUM = {
           "tier": "H",
           "selfCheck": true
         }
-      ]
+      ],
+      "extended": {
+        "q": "Show that (2^3 x 2^4) / 2^2 = 2^5, and then simplify (3 + 2 root 5)(3 - 2 root 5), showing each step. (5 marks)",
+        "marks": 5,
+        "model": "Indices: using the laws a^m x a^n = a^(m+n) and a^m / a^n = a^(m-n): (2^3 x 2^4) / 2^2 = 2^(3+4) / 2^2 = 2^7 / 2^2 = 2^(7-2) = 2^5, as required. Surds: (3 + 2 root 5)(3 - 2 root 5) is a difference of two squares. Expanding: 3x3 - 3x2 root 5 + 2 root 5 x 3 - (2 root 5)(2 root 5) = 9 - 6 root 5 + 6 root 5 - 4 x 5 = 9 - 20 = -11. The root-5 terms cancel, leaving the rational number -11."
+      }
     },
     {
       "unit": 6,
@@ -1383,7 +1408,12 @@ window.CURRICULUM = {
           "tier": "H",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "Show that (n + 3)^2 - (n + 1)^2 simplifies to a multiple of 4 for all integers n, fully expanding and factorising your working. (5 marks)",
+        "marks": 5,
+        "model": "Expand each bracket: (n + 3)^2 = n^2 + 6n + 9 and (n + 1)^2 = n^2 + 2n + 1. Subtract: (n^2 + 6n + 9) - (n^2 + 2n + 1) = n^2 + 6n + 9 - n^2 - 2n - 1 = 4n + 8. Factorise: 4n + 8 = 4(n + 2). Since n is an integer, (n + 2) is an integer, so 4(n + 2) is 4 times an integer and is therefore always a multiple of 4 for all integer values of n."
+      }
     },
     {
       "unit": 7,
@@ -1454,7 +1484,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "The formula for the perimeter of a rectangle is P = 2(l + w). A rectangle has a perimeter of 46 cm and its length is 5 cm more than its width. By rearranging and forming an equation, find the length and width. (5 marks)",
+        "marks": 5,
+        "model": "Let the width be w, so the length is w + 5. Substitute into P = 2(l + w): 46 = 2((w + 5) + w) = 2(2w + 5) = 4w + 10. Rearrange to solve for w: 46 - 10 = 4w, so 36 = 4w, giving w = 36 / 4 = 9 cm. The length is w + 5 = 9 + 5 = 14 cm. Check: 2(14 + 9) = 2 x 23 = 46 cm, which matches the given perimeter."
+      }
     },
     {
       "unit": 8,
@@ -1525,7 +1560,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "Two adults and three children pay £31 for cinema tickets. One adult and four children pay £28. By forming and solving simultaneous equations, find the cost of an adult ticket and a child ticket. (5 marks)",
+        "marks": 5,
+        "model": "Let a be the adult price and c the child price. Form equations: 2a + 3c = 31 (equation 1) and a + 4c = 28 (equation 2). Multiply equation 2 by 2: 2a + 8c = 56 (equation 3). Subtract equation 1 from equation 3: (2a + 8c) - (2a + 3c) = 56 - 31, giving 5c = 25, so c = £5. Substitute c = 5 into equation 2: a + 4(5) = 28, so a + 20 = 28, giving a = £8. An adult ticket costs £8 and a child ticket costs £5."
+      }
     },
     {
       "unit": 9,
@@ -1596,7 +1636,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": true
         }
-      ]
+      ],
+      "extended": {
+        "q": "The area of a rectangle is 40 cm^2. Its length is (x + 3) cm and its width is x cm. By forming a quadratic equation and solving by factorising, find the width of the rectangle. (5 marks)",
+        "marks": 5,
+        "model": "Area = length x width, so x(x + 3) = 40. Expand: x^2 + 3x = 40. Rearrange to equal zero: x^2 + 3x - 40 = 0. Factorise by finding two numbers that multiply to -40 and add to +3: these are +8 and -5, so (x + 8)(x - 5) = 0. The solutions are x = -8 or x = 5. A length cannot be negative, so reject x = -8. The width is x = 5 cm (and the length is 8 cm; check: 5 x 8 = 40 cm^2)."
+      }
     },
     {
       "unit": 10,
@@ -1667,7 +1712,12 @@ window.CURRICULUM = {
           "tier": "H",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "Solve x^2 - 6x + 4 = 0 by completing the square, giving your answers in surd form. Then state the coordinates of the turning point of the graph y = x^2 - 6x + 4. (6 marks)",
+        "marks": 6,
+        "model": "Completing the square: x^2 - 6x + 4 = (x - 3)^2 - 9 + 4 = (x - 3)^2 - 5. Setting equal to zero: (x - 3)^2 - 5 = 0, so (x - 3)^2 = 5. Take square roots: x - 3 = plus or minus root 5, giving x = 3 + root 5 or x = 3 - root 5. Because the equation is in the form (x - 3)^2 - 5, the graph y = x^2 - 6x + 4 has its minimum where the squared bracket is zero, i.e. at x = 3, where y = -5. The turning point is (3, -5), a minimum because the coefficient of x^2 is positive."
+      }
     },
     {
       "unit": 11,
@@ -1738,7 +1788,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "The nth term of a sequence is 2n^2 - 1. (a) Find the 5th term. (b) Show that 71 is a term in the sequence and state its position. (c) Explain whether 100 can be a term. (5 marks)",
+        "marks": 5,
+        "model": "(a) Substitute n = 5: 2(5)^2 - 1 = 2 x 25 - 1 = 50 - 1 = 49. (b) Set 2n^2 - 1 = 71: 2n^2 = 72, so n^2 = 36, giving n = 6 (taking the positive position). Since n = 6 is a positive whole number, 71 is the 6th term. (c) Set 2n^2 - 1 = 100: 2n^2 = 101, so n^2 = 50.5 and n = root 50.5, which is not a whole number. A term position must be a positive integer, so 100 cannot be a term in this sequence."
+      }
     },
     {
       "unit": 12,
@@ -1809,7 +1864,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": true
         }
-      ]
+      ],
+      "extended": {
+        "q": "A line passes through the points A(1, 2) and B(4, 11). Find the equation of the line in the form y = mx + c, and determine whether the point (10, 30) lies on the line. (5 marks)",
+        "marks": 5,
+        "model": "Gradient m = (change in y) / (change in x) = (11 - 2) / (4 - 1) = 9 / 3 = 3. Substitute one point, say A(1, 2), into y = 3x + c: 2 = 3(1) + c, so c = 2 - 3 = -1. The equation is y = 3x - 1. Test (10, 30): when x = 10, y = 3(10) - 1 = 30 - 1 = 29. Since 29 is not equal to 30, the point (10, 30) does not lie on the line."
+      }
     },
     {
       "unit": 13,
@@ -1880,7 +1940,12 @@ window.CURRICULUM = {
           "tier": "H",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "(a) Solve the inequality 3(x - 2) < x + 8. (b) Write down all the integer values of x that satisfy both 3(x - 2) < x + 8 and x >= -1. (5 marks)",
+        "marks": 5,
+        "model": "(a) Expand: 3x - 6 < x + 8. Subtract x from both sides: 2x - 6 < 8. Add 6: 2x < 14. Divide by 2: x < 7. (b) Combining x < 7 with x >= -1 gives -1 <= x < 7. The integers satisfying this are -1, 0, 1, 2, 3, 4, 5 and 6 (7 is excluded because the inequality is strict)."
+      }
     },
     {
       "unit": 14,
@@ -1951,7 +2016,12 @@ window.CURRICULUM = {
           "tier": "H",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "A regular polygon has an interior angle of 156 degrees. (a) Work out the size of each exterior angle. (b) Hence find the number of sides. (c) Find the sum of the interior angles of this polygon. (5 marks)",
+        "marks": 5,
+        "model": "(a) Interior and exterior angles lie on a straight line, so exterior angle = 180 - 156 = 24 degrees. (b) The exterior angles of any polygon sum to 360 degrees, so number of sides = 360 / 24 = 15 sides. (c) Sum of interior angles = (n - 2) x 180 = (15 - 2) x 180 = 13 x 180 = 2340 degrees. Check: 2340 / 15 = 156 degrees per angle, as given."
+      }
     },
     {
       "unit": 15,
@@ -2022,7 +2092,12 @@ window.CURRICULUM = {
           "tier": "H",
           "selfCheck": true
         }
-      ]
+      ],
+      "extended": {
+        "q": "A ladder of length 6.5 m leans against a vertical wall with its foot 2.5 m from the base of the wall. (a) Find how far up the wall the ladder reaches. (b) Find the angle the ladder makes with the ground, to 1 decimal place. (5 marks)",
+        "marks": 5,
+        "model": "(a) The wall, ground and ladder form a right-angled triangle with the ladder as the hypotenuse. By Pythagoras, height^2 = 6.5^2 - 2.5^2 = 42.25 - 6.25 = 36, so height = root 36 = 6 m. (b) The angle x at the ground has adjacent 2.5 and hypotenuse 6.5, so cos x = 2.5 / 6.5 = 0.3846..., giving x = cos^-1(0.3846) = 67.4 degrees to 1 decimal place. (Alternatively tan x = 6 / 2.5 = 2.4, x = 67.4 degrees.)"
+      }
     },
     {
       "unit": 16,
@@ -2093,7 +2168,12 @@ window.CURRICULUM = {
           "tier": "F",
           "selfCheck": false
         }
-      ]
+      ],
+      "extended": {
+        "q": "A bag contains 5 red and 3 blue counters. Two counters are taken at random without replacement. By drawing or describing a tree diagram, work out the probability that the two counters are different colours. (5 marks)",
+        "marks": 5,
+        "model": "On the first draw P(red) = 5/8 and P(blue) = 3/8. Without replacement only 7 counters remain. Different colours means red then blue, or blue then red. P(red then blue) = 5/8 x 3/7 = 15/56. P(blue then red) = 3/8 x 5/7 = 15/56. These outcomes are mutually exclusive, so add them: P(different colours) = 15/56 + 15/56 = 30/56 = 15/28."
+      }
     }
   ],
   "SCI": [

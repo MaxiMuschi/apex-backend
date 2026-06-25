@@ -12,10 +12,10 @@ authored to GCSE depth with exam-board and tier support.
 ## What's in it
 
 - **GCSE English Language** — 13 topics (untiered)
-- **GCSE Mathematics** — 16 topics (Foundation + Higher)
+- **GCSE Mathematics** — 16 topics (Foundation + Higher), each with a worked extended problem
 - **GCSE Combined Science: Trilogy** — 15 topics (Foundation + Higher), Biology / Chemistry / Physics
 - **264 practice questions** with mark schemes
-- **23 six-mark extended responses** with model answers and level descriptors
+- **39 extended responses** with full model answers — six-mark essays in English and Science (with level descriptors) and five/six-mark multi-step problem solutions in Maths
 - **Three exam boards supported** — AQA, Edexcel, OCR — with indicative spec references per topic
 
 > Spec references are indicative and should be checked against your board's current official specification before relying on them for revision planning.
