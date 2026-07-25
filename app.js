@@ -170,6 +170,33 @@
       });
   }
 
+  // ---- Live curriculum (optional; falls back to bundled curriculum.js) --
+  // The bundled curriculum.js renders instantly and works with no API. When
+  // an API base is configured, fetch the database-backed curriculum and swap
+  // it in, so admin edits show up without redeploying the static site.
+  function loadCurriculumFromApi() {
+    if (!API_BASE) return; // pure-static deploy: keep the bundled fallback
+    apiFetch("/api/curriculum")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (body) {
+        var tree = body && body.curriculum;
+        if (!tree) return;
+        // Only adopt the API copy if it actually has lessons; otherwise the
+        // bundled fallback is the safer thing to keep showing.
+        var hasContent = ["ENG", "MAT", "SCI"].some(function (k) {
+          return (tree[k] || []).length > 0;
+        });
+        if (!hasContent) return;
+        CURRICULUM = tree;
+        // Re-render the data-backed views so live content replaces the
+        // fallback. At boot only "today" is visible; these are all cheap.
+        renderToday();
+        renderCurriculum();
+        renderProgress();
+      })
+      .catch(function () { /* offline or API down: keep bundled fallback */ });
+  }
+
   function isDone(subjId, unit) { return state.completed[subjId].indexOf(unit) !== -1; }
   function markDone(subjId, unit) {
     if (!isDone(subjId, unit)) { state.completed[subjId].push(unit); save(); }
@@ -762,6 +789,7 @@
     renderStreak();
     renderAccount();
     checkHealth();                  // show whether the API is reachable
+    loadCurriculumFromApi();        // swap bundled content for the live API copy
     if (isAuthed()) pullAndMerge(); // pull cloud progress and merge on load
 
     document.getElementById("board-select").addEventListener("change", function (e) {

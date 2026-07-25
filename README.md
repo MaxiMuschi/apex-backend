@@ -136,8 +136,12 @@ curl -X POST https://your-api/api/curriculum/ENG \
   -d '{"unit":14,"title":"New topic","summary":"…","questions":[]}'
 ```
 
-> The static frontend still bundles `curriculum.js` and works with no API.
-> Pointing it at the API for content is optional and left as a follow-up.
+> The frontend uses this automatically: when `window.STUDY_JOURNAL_API_BASE`
+> is set, `app.js` renders the bundled `curriculum.js` instantly, then fetches
+> `GET /api/curriculum` and swaps in the live database copy (so admin edits
+> appear without redeploying). With no API base set — or if the API is
+> unreachable or empty — it keeps the bundled content, so the static-only
+> deploy still works offline.
 
 ## Lesson data model
 
