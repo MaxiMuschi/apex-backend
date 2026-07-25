@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Study Journal (GCSE) — a structured self-study programme. One short lesson a day across English Language, Maths and Combined Science, with exam-board and tier support. No login, no server." />
+  <title>The Study Journal — GCSE</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">SJ</span>
+      <div class="brand-text">
+        <h1>The Study Journal</h1>
+        <p class="brand-sub">GCSE &middot; a little, every day.</p>
+      </div>
+    </div>
+    <div class="streak" id="streak" title="Your daily streak">
+      <span class="streak-flame" aria-hidden="true">&#128293;</span>
+      <span class="streak-count" id="streak-count">0</span>
+      <span class="streak-label">day streak</span>
+    </div>
+  </header>
+
+  <div class="controls-bar" id="controls-bar">
+    <label class="control">
+      <span class="control-label">Exam board</span>
+      <select id="board-select" aria-label="Exam board"></select>
+    </label>
+    <label class="control">
+      <span class="control-label">Tier</span>
+      <select id="tier-select" aria-label="Tier">
+        <option value="Foundation">Foundation</option>
+        <option value="Higher">Higher</option>
+      </select>
+    </label>
+    <span class="health checking" id="health" title="API status" role="status" aria-live="polite">
+      <span class="health-dot" aria-hidden="true"></span>
+      <span class="health-text">Checking&hellip;</span>
+    </span>
+    <p class="control-note" id="tier-note"></p>
+  </div>
+
+  <div class="account-bar" id="account-bar"></div>
+
+  <nav class="tab-bar" id="tab-bar" aria-label="Primary">
+    <button class="tab" data-view="today" aria-current="page">Today</button>
+    <button class="tab" data-view="curriculum">Curriculum</button>
+    <button class="tab" data-view="progress">Progress</button>
+    <button class="tab" data-view="how">How It Works</button>
+  </nav>
+
+  <main id="main">
+    <!-- TODAY -->
+    <section class="view" id="view-today" aria-labelledby="today-h">
+      <h2 id="today-h" class="visually-hidden">Today</h2>
+      <p class="today-date" id="today-date"></p>
+      <div class="today-card" id="today-card"></div>
+      <div class="week-strip" id="week-strip" aria-label="This week"></div>
+    </section>
+
+    <!-- CURRICULUM -->
+    <section class="view" id="view-curriculum" hidden aria-labelledby="curric-h">
+      <h2 id="curric-h">Curriculum</h2>
+      <div class="subject-switcher" id="subject-switcher" role="tablist" aria-label="Subject"></div>
+      <p class="subject-meta" id="subject-meta"></p>
+      <div class="card-grid" id="lesson-grid"></div>
+    </section>
+
+    <!-- LESSON DETAIL -->
+    <section class="view" id="view-lesson" hidden aria-labelledby="lesson-title">
+      <div class="lesson-detail" id="lesson-detail"></div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="view" id="view-progress" hidden aria-labelledby="prog-h">
+      <h2 id="prog-h">Progress</h2>
+      <div class="progress-grid" id="progress-grid"></div>
+      <button class="btn btn-danger" id="reset-all">Reset all progress</button>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="view" id="view-how" hidden aria-labelledby="how-h">
+      <h2 id="how-h">How It Works</h2>
+      <ol class="how-list">
+        <li>
+          <h3>One subject per day</h3>
+          <p>The journal rotates through the subjects across the week, with a review day.
+          You don&rsquo;t choose &mdash; the schedule does. Mondays &amp; Thursdays are English,
+          Tuesdays &amp; Fridays Maths, Wednesdays &amp; Saturdays Science, and Sunday is review.</p>
+        </li>
+        <li>
+          <h3>Open the app, do today&rsquo;s lesson</h3>
+          <p>Each lesson takes about 30 minutes: a short concept reading, two worked examples,
+          and exam-style practice questions you check yourself &mdash; with mark schemes.</p>
+        </li>
+        <li>
+          <h3>Set your board and tier</h3>
+          <p>Choose your exam board (AQA, Edexcel, OCR) and tier (Foundation or Higher).
+          Maths and Combined Science are tiered; English Language is untiered, so the tier
+          setting doesn&rsquo;t change it. Spec references update to match your board.</p>
+        </li>
+        <li>
+          <h3>Print if you prefer paper</h3>
+          <p>Every lesson has a &ldquo;Print worksheet&rdquo; button that strips the navigation,
+          mark schemes and model answers to produce a clean, A4-ready worksheet.</p>
+        </li>
+        <li>
+          <h3>Progress builds itself</h3>
+          <p>Completion is saved automatically. A streak counter rewards showing up daily.
+          No account, no login, nothing to manage &mdash; the journal lives in the browser tab.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>The Study Journal &middot; runs entirely in your browser &middot; nothing is sent to a server.</p>
+    <p class="disclaimer">Spec references are indicative and should be checked against your board&rsquo;s current official specification.</p>
+  </footer>
+
+  <script>
+    // Cloud sync & login. Set this to your deployed API base URL
+    // (e.g. "https://your-api.onrender.com"). Leave empty to use the same
+    // origin as this page (handy when the API serves the frontend in dev).
+    window.STUDY_JOURNAL_API_BASE = window.STUDY_JOURNAL_API_BASE || "";
+  </script>
+  <script src="curriculum.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

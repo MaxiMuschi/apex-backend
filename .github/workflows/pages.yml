@@ -26,9 +26,12 @@ jobs:
 
       - name: Assemble site
         # The site is already static; copy the files Pages should serve into ./_site.
+        # index.html is the brand landing page; app.html is the learning app.
         run: |
           mkdir -p _site
-          cp index.html styles.css app.js curriculum.js _site/
+          cp index.html app.html styles.css app.js curriculum.js apex-logo.svg _site/
+          # Custom domain for GitHub Pages (apexacademy.co.ke).
+          cp CNAME _site/ 2>/dev/null || true
           # README is handy at the root of the published site too.
           cp README.md _site/ 2>/dev/null || true
 

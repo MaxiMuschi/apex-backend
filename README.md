@@ -22,12 +22,21 @@ authored to GCSE depth with exam-board and tier support.
 
 ## Run it
 
-It's static. Either open `index.html` directly, or serve the folder:
+It's static. `index.html` is the **brand landing page**; `app.html` is the
+**learning app**. Open either directly, or serve the folder:
 
 ```bash
 python3 -m http.server 8000
-# then visit http://localhost:8000
+# brand site:  http://localhost:8000
+# the app:     http://localhost:8000/app.html
 ```
+
+### Custom domain
+
+The site is published at **apexacademy.co.ke**. The `CNAME` file at the repo
+root sets this for GitHub Pages; on Netlify the domain is configured in the
+dashboard. Either way, point the domain's DNS at your chosen host (see the
+deploy notes below) — use only one host as the live target.
 
 ## Deploy
 
@@ -55,7 +64,7 @@ wiring `DATABASE_URL` automatically and generating `JWT_SECRET`.
    database is empty, then serves auth (`/api/signup`, `/api/login`,
    `/api/me`), progress (`/api/progress`), and the study-materials API
    (`/api/curriculum` — see below).
-4. In the frontend, set `window.STUDY_JOURNAL_API_BASE` in `index.html`
+4. In the frontend, set `window.STUDY_JOURNAL_API_BASE` in `app.html`
    to the deployed API URL to enable login and cross-device sync.
 5. To let a user edit the curriculum, set **`ADMIN_EMAILS`** (comma-separated)
    to their email, or set `is_admin = true` on their `users` row.
@@ -82,7 +91,10 @@ You can also trigger the workflow manually via the **Actions** tab → **Deploy 
 
 | File                         | Purpose                                                |
 | ---------------------------- | ------------------------------------------------------ |
-| `index.html`                 | Single page: header, controls bar, tabs, five views    |
+| `index.html`                 | Brand landing page (Story / Values / Vision / Curriculum) |
+| `app.html`                   | The learning app: header, controls bar, tabs, five views |
+| `apex-logo.svg`              | The Apex logo mark (also the favicon)                  |
+| `CNAME`                      | Custom domain for GitHub Pages (apexacademy.co.ke)     |
 | `styles.css`                 | All styling, including the print stylesheet            |
 | `app.js`                     | Behaviour rules, view switching, storage, self-check   |
 | `curriculum.js`              | The lesson content as plain data — the single source   |
