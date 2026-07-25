@@ -1,0 +1,42 @@
+# Netlify security & performance headers.
+# Applied by Netlify at the edge to every response from this site.
+
+/*
+  # --- Security ---
+  # HSTS: force HTTPS for a year (and allow preload-list submission).
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  # Stop MIME sniffing.
+  X-Content-Type-Options: nosniff
+  # Anti-clickjacking (belt-and-braces with CSP frame-ancestors).
+  X-Frame-Options: DENY
+  # Trim the referrer sent cross-origin.
+  Referrer-Policy: strict-origin-when-cross-origin
+  # Lock down powerful APIs we don't use.
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  # Content Security Policy.
+  #   script-src is strict 'self' — no inline JS anywhere (config is externalised).
+  #   style-src keeps 'unsafe-inline' for the inline <style>/style="" the pages use.
+  #   connect-src allows HTTPS so the app can reach its API (Render) once configured.
+  # NOTE: when you add analytics / social pixels (Instagram, TikTok, X, Facebook),
+  #   extend script-src, img-src, connect-src and frame-src with their domains.
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self'; connect-src 'self' https:; upgrade-insecure-requests
+
+# --- Caching ---
+# HTML: always revalidate so content updates show immediately.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Static assets: cache for a week (bump the filename to bust if needed).
+/apex-logo.svg
+  Cache-Control: public, max-age=604800
+/styles.css
+  Cache-Control: public, max-age=86400
+/site.js
+  Cache-Control: public, max-age=86400
+/app.js
+  Cache-Control: public, max-age=86400
+/config.js
+  Cache-Control: public, max-age=86400
+/curriculum.js
+  Cache-Control: public, max-age=86400
