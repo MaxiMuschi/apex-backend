@@ -254,6 +254,25 @@
   .val-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
   .val-card p { font-size: 15px; color: var(--ink-soft); }
 
+  /* ---------- Curriculum ---------- */
+  .curriculum { background: var(--cream); }
+  #reveal-curriculum { margin-top: 8px; }
+  .curriculum-content { margin-top: 8px; display: grid; gap: 44px; }
+  .cur-subject-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 2px solid var(--line); padding-bottom: 12px; margin-bottom: 22px; }
+  .cur-subject-head h3 { font-size: clamp(22px, 3vw, 30px); color: var(--ink); }
+  .cur-count { font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--turq-deep); white-space: nowrap; }
+  .cur-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .cur-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .cur-grid { grid-template-columns: 1fr; } }
+  .cur-mod { background: var(--cream); border: 1px solid var(--line); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm); transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease; }
+  .cur-mod:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(18, 165, 172, 0.4); }
+  .cur-mod-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .cur-unit { font-family: 'Fraunces', serif; font-weight: 700; font-size: 11.5px; letter-spacing: 0.07em; text-transform: uppercase; color: #fff; background: var(--turq-deep); padding: 5px 10px; border-radius: 8px; }
+  .cur-h { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #B67A00; background: rgba(244, 183, 64, 0.20); padding: 4px 9px; border-radius: 999px; }
+  .cur-title { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16.5px; line-height: 1.28; color: var(--ink); margin-bottom: 8px; }
+  .cur-sum { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 12px; }
+  .cur-meta { font-size: 12px; font-weight: 600; color: var(--turq-deep); }
+
   /* ---------- Vision ---------- */
   .vision { background: var(--sand); }
   .vision-inner {
@@ -359,6 +378,7 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#story">Story</a>
+      <a href="#curriculum">Curriculum</a>
       <a href="#values">Values</a>
       <a href="#vision">Vision</a>
       <a href="#trust">Trust</a>
@@ -445,6 +465,19 @@
         <div class="stat"><div class="num">264</div><div class="lbl">Practice questions</div></div>
         <div class="stat"><div class="num">3</div><div class="lbl">Exam boards</div></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== CURRICULUM ===================== -->
+  <section class="section curriculum" id="curriculum">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Every module</span>
+        <h2>The full curriculum, laid bare.</h2>
+        <p>Three subjects, forty-four crafted modules. One click reveals every topic your child will master — nothing hidden behind a sign-up.</p>
+        <button class="btn btn-primary" id="reveal-curriculum" aria-expanded="false" aria-controls="curriculum-content">Reveal all modules →</button>
+      </div>
+      <div id="curriculum-content" class="curriculum-content" hidden></div>
     </div>
   </section>
 
@@ -602,6 +635,68 @@
     </div>
   </div>
 </footer>
+
+<!-- The curriculum data (single source of truth; also seeds the backend). -->
+<script src="../curriculum.js"></script>
+<script>
+  (function () {
+    var LABELS = { ENG: "English Language", MAT: "Mathematics", SCI: "Combined Science" };
+    var ORDER = ["ENG", "MAT", "SCI"];
+    var btn = document.getElementById("reveal-curriculum");
+    var box = document.getElementById("curriculum-content");
+    var rendered = false;
+
+    function esc(s) {
+      var d = document.createElement("div");
+      d.textContent = s == null ? "" : String(s);
+      return d.innerHTML;
+    }
+
+    function render() {
+      var C = window.CURRICULUM || {};
+      var html = "";
+      ORDER.forEach(function (sid) {
+        var lessons = C[sid] || [];
+        if (!lessons.length) return;
+        html += '<div class="cur-subject">' +
+          '<div class="cur-subject-head"><h3>' + esc(LABELS[sid] || sid) + '</h3>' +
+          '<span class="cur-count">' + lessons.length + ' modules</span></div>' +
+          '<div class="cur-grid">';
+        lessons.forEach(function (l) {
+          var qn = (l.questions && l.questions.length) || 0;
+          var higher = l.tier === "H" ? '<span class="cur-h">Higher</span>' : '';
+          html += '<div class="cur-mod">' +
+            '<div class="cur-mod-top"><span class="cur-unit">Unit ' + esc(l.unit) + '</span>' + higher + '</div>' +
+            '<div class="cur-title">' + esc(l.title) + '</div>' +
+            '<div class="cur-sum">' + esc(l.summary || "") + '</div>' +
+            '<div class="cur-meta">' + qn + ' practice questions</div>' +
+            '</div>';
+        });
+        html += '</div></div>';
+      });
+      if (!html) {
+        html = '<p style="text-align:center;color:var(--ink-soft)">The curriculum will appear here. ' +
+          '<a href="../index.html" style="color:var(--turq-deep);font-weight:600">Open the classroom</a> to explore it.</p>';
+      }
+      box.innerHTML = html;
+      rendered = true;
+    }
+
+    btn.addEventListener("click", function () {
+      var isOpen = box.hidden === false;
+      if (isOpen) {
+        box.hidden = true;
+        btn.setAttribute("aria-expanded", "false");
+        btn.textContent = "Reveal all modules →";
+        return;
+      }
+      if (!rendered) render();
+      box.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+      btn.textContent = "Hide modules";
+    });
+  })();
+</script>
 
 </body>
 </html>
