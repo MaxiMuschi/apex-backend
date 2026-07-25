@@ -155,6 +155,27 @@
     });
   }
 
+  function initPricing() {
+    var host = document.querySelector("[data-pricing]");
+    var plans = window.APEX_PLANS;
+    if (!host || !plans) return;
+    var sym = plans.symbol, per = plans.cadence;
+    host.innerHTML = plans.tiers.map(function (p) {
+      var feats = p.features.map(function (f) {
+        return '<li><span class="tick" aria-hidden="true">✓</span><span>' + f + "</span></li>";
+      }).join("");
+      var btnClass = p.popular ? "btn btn-primary" : "btn btn-ghost";
+      return '<div class="plan' + (p.popular ? " popular" : "") + '">' +
+        '<div class="plan-name">' + p.name + "</div>" +
+        '<div class="plan-tag">' + (p.tagline || "") + "</div>" +
+        '<div class="plan-price"><span class="cur">' + sym + "</span>" + p.price +
+          '<span class="per"> /' + per + "</span></div>" +
+        '<ul class="plan-feats">' + feats + "</ul>" +
+        '<a class="' + btnClass + '" href="app.html?plan=' + p.id + '">Choose ' + p.name + "</a>" +
+        "</div>";
+    }).join("");
+  }
+
   function initAnalytics() {
     if (!CONFIG.analyticsId) return; // not configured yet — no-op
     // Later: inject your privacy-first analytics here, and whitelist its
@@ -165,6 +186,7 @@
     renderSocial();
     initNav();
     initCurriculum();
+    initPricing();
     initReveal();
     initTilt();
     initAnalytics();
