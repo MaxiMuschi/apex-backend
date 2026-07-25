@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node --test",
     "start": "node server.js",
-    "db:migrate": "node -e \"require('./migrate')(require('./db')).then(()=>{console.log('migrated');process.exit(0)}).catch(e=>{console.error(e);process.exit(1)})\""
+    "db:migrate": "node -e \"require('./migrate')(require('./db')).then(()=>{console.log('migrated');process.exit(0)}).catch(e=>{console.error(e);process.exit(1)})\"",
+    "db:seed": "node -e \"require('./seed')(require('./db'),{log:console.log}).then(()=>process.exit(0)).catch(e=>{console.error(e);process.exit(1)})\""
   },
   "repository": {
     "type": "git",

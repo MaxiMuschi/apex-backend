@@ -58,7 +58,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Inference (accept inferring).",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "From a source describing a character whose 'shoulders sagged as she read the letter', what can you infer about her mood, and how do you know? (2 marks, AO1)",
@@ -119,7 +119,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Connotation (accept connotations).",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Which AO assesses analysis of a writer's language for effect?",
@@ -144,6 +144,14 @@ window.CURRICULUM = {
           "markscheme": "Two precise quotations, accurate terminology, developed comment on effect for each; clear link to reader response and writer's intention.",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "Identify the technique: 'Her words were a knife that cut deep.'",
+          "a": "metaphor",
+          "marks": 1,
+          "markscheme": "Metaphor — a direct comparison, not using 'like' or 'as'.",
+          "tier": "F",
+          "selfCheck": true
         }
       ],
       "extended": {
@@ -179,7 +187,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Cyclical structure.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "What is the term for placing two contrasting ideas or images side by side for effect?",
@@ -187,7 +195,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Juxtaposition (accept contrast).",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "True or false: structure analysis should focus mainly on individual word choices.",
@@ -270,7 +278,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Accept whereas / however / similarly / in contrast / both / on the other hand.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "True or false: a good comparison writes about each text in two separate, unlinked paragraphs.",
@@ -353,7 +361,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Accept effectively / convincingly / powerfully / successfully / skilfully.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "A statement claims 'the writer makes the rescue genuinely exciting'. Briefly evaluate, with one piece of evidence, how far you agree. (3 marks, AO4)",
@@ -400,11 +408,11 @@ window.CURRICULUM = {
       "questions": [
         {
           "q": "What writing principle means revealing emotion through detail rather than stating it directly?",
-          "a": "showdonttell",
+          "a": "show, don't tell",
           "marks": 1,
           "markscheme": "Show, don't tell.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Which AO assesses content, organisation and imaginative communication in writing?",
@@ -492,19 +500,19 @@ window.CURRICULUM = {
         },
         {
           "q": "Name the cliched ending GCSE examiners advise against.",
-          "a": "itwasalladream",
+          "a": "it was all a dream",
           "marks": 1,
           "markscheme": "'It was all a dream' (accept 'a dream').",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Which two AOs are assessed in narrative writing?",
-          "a": "ao5ao6",
+          "a": "AO5 and AO6",
           "marks": 1,
           "markscheme": "AO5 and AO6.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Write an opening line that hooks the reader using dialogue or an intriguing image. (2 marks, AO5)",
@@ -560,11 +568,11 @@ window.CURRICULUM = {
         },
         {
           "q": "What is the persuasive technique of using groups of three called?",
-          "a": "tripletruleofthree",
+          "a": "triplet",
           "marks": 1,
           "markscheme": "Triplet / rule of three.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "How should you close a formal letter that begins 'Dear Sir or Madam'?",
@@ -597,6 +605,14 @@ window.CURRICULUM = {
           "markscheme": "Correct speech conventions (address audience); at least two purposeful persuasive techniques; clear viewpoint; varied sentences; accurate SPaG.",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "In DAFOREST, what does the 'R' stand for? (two words)",
+          "a": "rhetorical question",
+          "marks": 1,
+          "markscheme": "Rhetorical question.",
+          "tier": "F",
+          "selfCheck": false
         }
       ],
       "extended": {
@@ -627,11 +643,11 @@ window.CURRICULUM = {
       "questions": [
         {
           "q": "What term describes addressing and then defeating the opposing view in an argument?",
-          "a": "counterargument",
+          "a": "counter-argument",
           "marks": 1,
           "markscheme": "Counter-argument (accept counter-argument and rebuttal).",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "What is the term for your overall central stance or position in an argument?",
@@ -647,7 +663,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Accept admittedly / some may argue / of course / granted / it is true that.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "True or false: a single clear line of argument is better than many unconnected points.",
@@ -730,7 +746,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Accept desolate / despairing / forlorn / bleak / sombre.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Rewrite 'The food was nice' using two precise, ambitious words. (2 marks, AO6)",
@@ -775,7 +791,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Simple sentence.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Name the sentence type with a main clause plus a subordinate clause.",
@@ -787,11 +803,11 @@ window.CURRICULUM = {
         },
         {
           "q": "What is the usual effect of a short, simple sentence among longer ones?",
-          "a": "impactemphasistension",
+          "a": "emphasis",
           "marks": 1,
           "markscheme": "Impact / emphasis / tension / dramatic effect.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "True or false: starting every sentence with 'The' or 'I' shows strong sentence variety.",
@@ -848,11 +864,11 @@ window.CURRICULUM = {
         },
         {
           "q": "Which is correct for 'it is': its or it's?",
-          "a": "its",
+          "a": "it's",
           "marks": 1,
-          "markscheme": "It's (contraction of 'it is'). Note: the checker strips the apostrophe, so 'its' is accepted as the keyed answer.",
+          "markscheme": "\"it's\" = \"it is\" (a contraction); \"its\" is the possessive with no apostrophe. Open answer — the checker cannot reliably match an apostrophe.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Which punctuation mark links two related complete clauses without a conjunction?",
@@ -885,6 +901,14 @@ window.CURRICULUM = {
           "markscheme": "Reward: capital 'The'; 'their kennels'; 'it's time'; 'their walk'. Accurate homophone and apostrophe use.",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "Add the possessive apostrophe: 'the dogs bowl' (one dog).",
+          "a": "dog's",
+          "marks": 1,
+          "markscheme": "dog's — singular possessive (apostrophe before the s).",
+          "tier": "F",
+          "selfCheck": true
         }
       ]
     },
@@ -913,7 +937,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Discourse marker (accept connective).",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "What is the sentence that opens a paragraph and states its main idea called?",
@@ -937,7 +961,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Accept however / on the other hand / nevertheless / in contrast / whereas.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "True or false: in an exam you should start writing immediately with no plan to save time.",
@@ -1156,9 +1180,9 @@ window.CURRICULUM = {
         },
         {
           "q": "A car worth 12 000 pounds depreciates by 15% each year. Find its value after 3 years to the nearest pound. (3 marks)",
-          "a": "7367",
+          "a": "7370",
           "marks": 3,
-          "markscheme": "M1 multiplier 0.85; M1 12000 x 0.85^3; A1 7366.5 -> 7367.",
+          "markscheme": "M1 depreciation factor 0.85 per year; M1 12000 × 0.85³ = 7369.5; A1 £7370 (nearest pound).",
           "tier": "H",
           "selfCheck": true
         },
@@ -1294,7 +1318,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "M1 root 25 x root 3; A1 5 root 3.",
           "tier": "H",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Rationalise the denominator of 6/root 3. (2 marks)",
@@ -1302,7 +1326,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "M1 multiply by root 3/root 3 = 6 root 3/3; A1 2 root 3.",
           "tier": "H",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Show that (2 + root 3)(2 - root 3) is an integer and state its value. (2 marks)",
@@ -1373,7 +1397,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "B1 difference of two squares.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Show that (n + 3)^2 - (n + 1)^2 is always a multiple of 4 for integer n. (3 marks)",
@@ -1483,7 +1507,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "M1 add: 2x = 12; A1 x = 6 (y = 3).",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Solve 3x + 2y = 16 and x + 2y = 8. Give x. (2 marks)",
@@ -1491,15 +1515,15 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "M1 subtract: 2x = 8; A1 x = 4.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
-          "q": "Solve 2x + 3y = 13 and 4x - 3y = 5. Give y. (3 marks)",
+          "q": "Solve 2x + 3y = 15 and 4x - 3y = 3. Give y. (3 marks)",
           "a": "y=3",
           "marks": 3,
           "markscheme": "M1 add: 6x = 18, x = 3; M1 substitute; A1 y = 3.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Two pens and three rulers cost 7 pounds; four pens and one ruler cost 9 pounds. Find the cost of one pen. (3 marks)",
@@ -1515,7 +1539,7 @@ window.CURRICULUM = {
           "marks": 4,
           "markscheme": "M1 x^2 - 3 = 2x; M1 x^2 - 2x - 3 = 0; M1 (x-3)(x+1); A1 x = 3 (and x = -1).",
           "tier": "H",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Form and solve simultaneous equations to find two numbers whose sum is 30 and whose difference is 8. (3 marks)",
@@ -1562,7 +1586,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "M1 (x-2)(x-3)=0; A1 x = 2 or 3.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Solve x^2 - 36 = 0. Give both roots. (2 marks)",
@@ -1570,7 +1594,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "M1 (x-6)(x+6); A1 x = 6 or -6.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Solve x^2 + 2x - 15 = 0. Give both roots. (2 marks)",
@@ -1578,7 +1602,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "M1 (x+5)(x-3); A1 x = 3 or -5.",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Solve 3x^2 - 11x - 4 = 0. Give both roots. (3 marks)",
@@ -1586,7 +1610,7 @@ window.CURRICULUM = {
           "marks": 3,
           "markscheme": "M1 split middle term; M1 (3x+1)(x-4); A1 x = 4 or -1/3.",
           "tier": "H",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "The area of a rectangle of width x and length (x + 3) is 40. Form and solve an equation to find x. (4 marks)",
@@ -1737,6 +1761,14 @@ window.CURRICULUM = {
           "markscheme": "M1 terms 59 and 47; A1 59 - 47 = 12.",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "Find the next term of the geometric sequence 3, 6, 12, 24, ...",
+          "a": "48",
+          "marks": 1,
+          "markscheme": "Common ratio ×2; 24 × 2 = 48.",
+          "tier": "F",
+          "selfCheck": true
         }
       ]
     },
@@ -1950,6 +1982,14 @@ window.CURRICULUM = {
           "markscheme": "M1 angle at centre is 180 (diameter); M1 angle at centre = 2x circumference; M1 so circumference angle = 90; A1 full reasoning.",
           "tier": "H",
           "selfCheck": false
+        },
+        {
+          "q": "A tangent touches a circle at point P. What is the angle (in degrees) between the tangent and the radius at P?",
+          "a": "90",
+          "marks": 1,
+          "markscheme": "90° — a tangent meets the radius at a right angle.",
+          "tier": "H",
+          "selfCheck": true
         }
       ]
     },
@@ -2019,6 +2059,14 @@ window.CURRICULUM = {
           "a": "13.5",
           "marks": 2,
           "markscheme": "M1 0.5 x 9 x 6 x sin30; A1 13.5.",
+          "tier": "H",
+          "selfCheck": true
+        },
+        {
+          "q": "Sine rule: a/sinA = b/sinB. If a = 8, sinA = 0.5 and sinB = 0.25, find b.",
+          "a": "4",
+          "marks": 2,
+          "markscheme": "b = a·sinB ÷ sinA = 8 × 0.25 ÷ 0.5 = 4.",
           "tier": "H",
           "selfCheck": true
         }
@@ -2092,6 +2140,14 @@ window.CURRICULUM = {
           "markscheme": "B1 A higher mean (better on average); B1 A smaller range (more consistent); B1 both in context.",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "Estimate the mean of grouped data: class 0–10 (frequency 2, midpoint 5) and 10–20 (frequency 3, midpoint 15).",
+          "a": "11",
+          "marks": 2,
+          "markscheme": "Σ(f × midpoint) ÷ Σf = (2×5 + 3×15) ÷ 5 = 55 ÷ 5 = 11.",
+          "tier": "F",
+          "selfCheck": true
         }
       ]
     }
@@ -2124,7 +2180,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "mitochondria (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Which structure controls what enters and leaves the cell (1 mark)?",
@@ -2132,7 +2188,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "cell membrane / plasma membrane (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "A cell is 0.05 mm long. Viewed at x300, what is the image size in mm (1 mark)?",
@@ -2148,7 +2204,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "cell wall (1); chloroplast (1); permanent vacuole also acceptable",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Describe two differences between a prokaryotic and a eukaryotic cell (2 marks).",
@@ -2242,6 +2298,22 @@ window.CURRICULUM = {
           "markscheme": "neutralises stomach acid / makes conditions alkaline (1); emulsifies fats / increases surface area for lipase (1)",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "Which reagent tests for starch, turning blue-black when starch is present?",
+          "a": "iodine",
+          "marks": 1,
+          "markscheme": "Iodine solution (turns blue-black with starch).",
+          "tier": "F",
+          "selfCheck": true
+        },
+        {
+          "q": "A reaction finishes in 20 seconds. Calculate the mean rate as 1 ÷ time (per second).",
+          "a": "0.05",
+          "marks": 1,
+          "markscheme": "rate = 1 ÷ time = 1 ÷ 20 = 0.05 per second.",
+          "tier": "F",
+          "selfCheck": true
         }
       ],
       "extended": {
@@ -2319,6 +2391,14 @@ window.CURRICULUM = {
           "markscheme": "CO2 no longer the limiting factor (1); another factor limits rate e.g. light/temperature (1); increasing CO2 has no further effect on rate (1)",
           "tier": "H",
           "selfCheck": false
+        },
+        {
+          "q": "Name one use of the glucose made in photosynthesis, other than for respiration.",
+          "a": "stored as starch",
+          "marks": 1,
+          "markscheme": "Any one: stored as starch / used to make cellulose / used to make proteins (with nitrate ions) / converted to fats and oils.",
+          "tier": "F",
+          "selfCheck": false
         }
       ],
       "extended": {
@@ -2371,7 +2451,7 @@ window.CURRICULUM = {
           "marks": 2,
           "markscheme": "ethanol (1); carbon dioxide (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Which gas is required for aerobic respiration (1 mark)?",
@@ -2440,7 +2520,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "Charles Darwin (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "An organism has two identical alleles. What term describes this (1 mark)?",
@@ -2456,7 +2536,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "1/2 / one half / 50% (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Cross Bb x Bb where B is dominant. State the expected phenotype ratio (1 mark).",
@@ -2517,7 +2597,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "zero / neutral / 0 (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "An atom has 11 protons and 12 neutrons. What is its mass number (1 mark)?",
@@ -2602,7 +2682,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "delocalised electrons / electrons (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Why does solid sodium chloride NOT conduct electricity (1 mark)?",
@@ -2610,7 +2690,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "ions are fixed in place / not free to move (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Explain why ionic compounds have high melting points (2 marks).",
@@ -2703,6 +2783,14 @@ window.CURRICULUM = {
           "markscheme": "no atoms created or destroyed / atoms rearranged (1); flask sealed so no gas can enter or escape / total mass conserved (1)",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "For Mg + 2HCl → MgCl₂ + H₂, how many moles of hydrogen gas form from 0.5 mol of magnesium?",
+          "a": "0.5",
+          "marks": 2,
+          "markscheme": "1:1 mole ratio of Mg to H₂, so 0.5 mol H₂.",
+          "tier": "H",
+          "selfCheck": true
         }
       ],
       "extended": {
@@ -2763,7 +2851,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "provides alternative pathway with lower activation energy (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Explain, using collision theory, why increasing concentration increases the rate of reaction (2 marks).",
@@ -2816,7 +2904,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "hydrogen ion / H+ (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "What is the pH of a neutral solution (1 mark)?",
@@ -2856,6 +2944,22 @@ window.CURRICULUM = {
           "marks": 3,
           "markscheme": "strong acid fully ionised / weak only partially ionised (1); strong acid has higher concentration of H+ ions (1); higher H+ concentration means lower pH (1)",
           "tier": "H",
+          "selfCheck": false
+        },
+        {
+          "q": "If the pH of a solution falls by 1, the hydrogen-ion concentration changes by what factor?",
+          "a": "10",
+          "marks": 1,
+          "markscheme": "×10 — each pH unit is a tenfold change in hydrogen-ion concentration.",
+          "tier": "H",
+          "selfCheck": true
+        },
+        {
+          "q": "Hydrochloric acid is neutralised by sodium hydroxide to give water and which salt? (two words)",
+          "a": "sodium chloride",
+          "marks": 1,
+          "markscheme": "Sodium chloride — hydrochloric acid makes chloride salts.",
+          "tier": "F",
           "selfCheck": false
         }
       ],
@@ -3011,6 +3115,14 @@ window.CURRICULUM = {
           "markscheme": "adds extra paths/branches for current (1); more current can flow for the same potential difference (1); so total/overall resistance decreases (1)",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "A device operates at 12 V and draws a current of 2 A. Calculate its power (W).",
+          "a": "24",
+          "marks": 2,
+          "markscheme": "P = V × I = 12 × 2 = 24 W.",
+          "tier": "F",
+          "selfCheck": true
         }
       ],
       "extended": {
@@ -3165,6 +3277,14 @@ window.CURRICULUM = {
           "markscheme": "passenger was moving with the car / has momentum (1); Newton's first law: object continues moving unless a resultant force acts (1); seatbelt/seat provides the force to decelerate them, otherwise they continue forward (1)",
           "tier": "F",
           "selfCheck": false
+        },
+        {
+          "q": "A 2 kg trolley moving at 3 m/s collides with a stationary 1 kg trolley and they move off together. Use conservation of momentum to find their common speed (m/s).",
+          "a": "2",
+          "marks": 3,
+          "markscheme": "Momentum before = 2 × 3 = 6 kg·m/s; after = (2+1) × v; v = 6 ÷ 3 = 2 m/s.",
+          "tier": "H",
+          "selfCheck": true
         }
       ],
       "extended": {
@@ -3221,11 +3341,11 @@ window.CURRICULUM = {
         },
         {
           "q": "Which electromagnetic wave has the longest wavelength (1 mark)?",
-          "a": "radio",
+          "a": "radio waves",
           "marks": 1,
           "markscheme": "radio waves (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Give one use of microwaves (1 mark).",
@@ -3233,7 +3353,7 @@ window.CURRICULUM = {
           "marks": 1,
           "markscheme": "cooking / satellite communication / mobile phones (1)",
           "tier": "F",
-          "selfCheck": true
+          "selfCheck": false
         },
         {
           "q": "Explain why ultraviolet, X-rays and gamma rays can be dangerous to humans (2 marks).",
