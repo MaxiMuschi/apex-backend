@@ -51,10 +51,14 @@ wiring `DATABASE_URL` automatically and generating `JWT_SECRET`.
 2. Set **`CORS_ORIGIN`** on the service to your frontend origin
    (e.g. `https://maximuschi.github.io`) to lock CORS down. Defaults to `*`.
 3. The service runs `node server.js`, which applies `schema.sql` on boot
-   (idempotent — `CREATE TABLE IF NOT EXISTS`), then serves on `/health`,
-   `/api/signup`, `/api/login`, `/api/me`, and `/api/progress`.
+   (idempotent — `CREATE TABLE IF NOT EXISTS`), seeds the curriculum if the
+   database is empty, then serves auth (`/api/signup`, `/api/login`,
+   `/api/me`), progress (`/api/progress`), and the study-materials API
+   (`/api/curriculum` — see below).
 4. In the frontend, set `window.STUDY_JOURNAL_API_BASE` in `index.html`
    to the deployed API URL to enable login and cross-device sync.
+5. To let a user edit the curriculum, set **`ADMIN_EMAILS`** (comma-separated)
+   to their email, or set `is_admin = true` on their `users` row.
 
 ### API (Docker — Railway, Fly, Cloud Run, …)
 
@@ -69,7 +73,8 @@ docker run -p 3000:3000 \
 ```
 
 Provide your own Postgres (Neon/Supabase/RDS/…). The container applies the
-schema on boot. Run migrations manually anytime with `npm run db:migrate`.
+schema on boot. Run migrations manually anytime with `npm run db:migrate`,
+and (re)load the curriculum into the database with `npm run db:seed`.
 
 You can also trigger the workflow manually via the **Actions** tab → **Deploy to GitHub Pages** → **Run workflow**.
 
@@ -80,7 +85,12 @@ You can also trigger the workflow manually via the **Actions** tab → **Deploy 
 | `index.html`                 | Single page: header, controls bar, tabs, five views    |
 | `styles.css`                 | All styling, including the print stylesheet            |
 | `app.js`                     | Behaviour rules, view switching, storage, self-check   |
-| `curriculum.js`              | The lesson content as plain data — edit here           |
+| `curriculum.js`              | The lesson content as plain data — the single source   |
+| `curriculum-source.js`       | Loads `curriculum.js` in Node (for seeding)            |
+| `materials.js`               | DB access for the curriculum (subjects/lessons/questions) |
+| `seed.js`                    | Seeds the DB from `curriculum.js` (idempotent)         |
+| `api.js`                     | Express API: auth, progress, and curriculum endpoints  |
+| `schema.sql`                 | Postgres schema (users, progress, curriculum tables)   |
 | `.github/workflows/pages.yml`| GitHub Pages deployment workflow                       |
 
 ## Behaviour (all client-side)
@@ -91,6 +101,43 @@ You can also trigger the workflow manually via the **Actions** tab → **Deploy 
 4. **Streak** — consecutive-day visits +1; a gap resets to 1.
 5. **Storage** — completed lessons, streak, board, and tier saved to `localStorage`.
 6. **Self-checking** — answers normalised (lower-cased; spaces, commas, `° £ $` stripped). Open exam-style questions reveal a mark scheme instead.
+
+## Study materials API
+
+The curriculum also lives in Postgres (tables `subjects`, `lessons`,
+`questions`) and is served by the backend, so a native app, an alternate
+frontend, or an admin editor can read and change it without redeploying.
+
+The database is the mirror; **`curriculum.js` stays the source of truth**.
+`npm run db:seed` (and an automatic seed-if-empty on boot) load it in, and
+the seed is idempotent — re-running refreshes content by `(subject, unit)`
+without creating duplicates or clobbering an empty database's later edits.
+
+**Reads are public. Writes require an admin** (see step 5 of the Render
+setup). All bodies and responses use the same camelCase lesson shape as
+`curriculum.js`.
+
+| Method & path                         | Auth   | Purpose                                  |
+| ------------------------------------- | ------ | ---------------------------------------- |
+| `GET /api/curriculum`                 | public | The whole tree (`{ ENG:[…], MAT:[…], SCI:[…] }`) |
+| `GET /api/curriculum/:subject`        | public | One subject's lessons (`ENG`/`MAT`/`SCI`, case-insensitive) |
+| `GET /api/curriculum/:subject/:unit`  | public | A single lesson                          |
+| `POST /api/curriculum/:subject`       | admin  | Create a lesson (needs `unit`, `title`)  |
+| `PUT /api/curriculum/:subject/:unit`  | admin  | Update a lesson in place                 |
+| `DELETE /api/curriculum/:subject/:unit`| admin | Delete a lesson                          |
+
+```bash
+# Read (no auth)
+curl https://your-api/api/curriculum/ENG/1
+
+# Create (admin bearer token from /api/login)
+curl -X POST https://your-api/api/curriculum/ENG \
+  -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{"unit":14,"title":"New topic","summary":"…","questions":[]}'
+```
+
+> The static frontend still bundles `curriculum.js` and works with no API.
+> Pointing it at the API for content is optional and left as a follow-up.
 
 ## Lesson data model
 
@@ -125,7 +172,9 @@ Each lesson:
 Edit `curriculum.js`. The file is plain data — JSON inside a single
 `window.CURRICULUM = ...;` assignment. Add a new lesson object to the
 right subject array, give it a fresh `unit` number, fill the fields,
-and reload. No build step.
+and reload. No build step. If you run the backend, apply the same change
+to its database with `npm run db:seed`. Alternatively, edit content
+live through the admin curriculum API above.
 
 ## Limitations to be aware of
 
