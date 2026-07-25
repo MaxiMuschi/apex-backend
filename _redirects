@@ -1,0 +1,4 @@
+# The site was reorganised so the brand page is the root and the app is /app.html.
+# Keep any old /brand/ links working.
+/brand/*    /:splat    301
+/brand      /          301

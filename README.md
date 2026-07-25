@@ -33,10 +33,16 @@ python3 -m http.server 8000
 
 ### Custom domain
 
-The site is published at **apexacademy.co.ke**. The `CNAME` file at the repo
-root sets this for GitHub Pages; on Netlify the domain is configured in the
-dashboard. Either way, point the domain's DNS at your chosen host (see the
-deploy notes below) — use only one host as the live target.
+The live site is hosted on **Netlify** (`fascinating-biscotti-5b6aa4.netlify.app`)
+and published at **apexacademy.co.ke**. Set the custom domain in the Netlify
+dashboard (**Domain management → Add a custom domain**) and point the domain's
+DNS at Netlify:
+
+- apex `apexacademy.co.ke` → **A** record `75.2.60.5`
+- `www` → **CNAME** `fascinating-biscotti-5b6aa4.netlify.app`
+
+Netlify provisions HTTPS automatically once DNS resolves. The `_redirects`
+file keeps legacy `/brand/*` links pointing at the reorganised root.
 
 ## Deploy
 
@@ -94,7 +100,7 @@ You can also trigger the workflow manually via the **Actions** tab → **Deploy 
 | `index.html`                 | Brand landing page (Story / Values / Vision / Curriculum) |
 | `app.html`                   | The learning app: header, controls bar, tabs, five views |
 | `apex-logo.svg`              | The Apex logo mark (also the favicon)                  |
-| `CNAME`                      | Custom domain for GitHub Pages (apexacademy.co.ke)     |
+| `_redirects`                 | Netlify redirects (legacy `/brand/*` → root)           |
 | `styles.css`                 | All styling, including the print stylesheet            |
 | `app.js`                     | Behaviour rules, view switching, storage, self-check   |
 | `curriculum.js`              | The lesson content as plain data — the single source   |
